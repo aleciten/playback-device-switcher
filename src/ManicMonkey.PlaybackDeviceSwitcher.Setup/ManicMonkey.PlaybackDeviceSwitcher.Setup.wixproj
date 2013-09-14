@@ -61,8 +61,6 @@
     <Content Include="Binary\Info.ico" />
     <Content Include="Binary\License.rtf" />
     <Content Include="Binary\New.ico" />
-    <Content Include="Binary\Remove.ico" />
-    <Content Include="Binary\Repair.ico" />
     <Content Include="Binary\Typical.ico" />
     <Content Include="Binary\Up.ico" />
   </ItemGroup>

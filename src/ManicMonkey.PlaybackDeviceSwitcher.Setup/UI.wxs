@@ -394,9 +394,7 @@
     <Binary Id="Up" SourceFile="Binary\Up.ico" />
     <Binary Id="New" SourceFile="Binary\New.ico" />
     <Binary Id="custicon" SourceFile="Binary\Custom.ico" />
-    <Binary Id="repairic" SourceFile="Binary\Repair.ico" />
     <Binary Id="exclamic" SourceFile="Binary\Exclam.ico" />
-    <Binary Id="removico" SourceFile="Binary\Remove.ico" />
     <Binary Id="completi" SourceFile="Binary\Complete.ico" />
     <Binary Id="insticon" SourceFile="Binary\Typical.ico" />
     <Binary Id="info" SourceFile="Binary\Info.ico" />

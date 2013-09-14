@@ -2,7 +2,7 @@
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <Product Id="A6140EAA-03C6-4754-A92E-FA8629BB0A1B" Name="Playback Device Switcher" Language="1033" Version="1.0" Manufacturer="Manic Monkey labs" UpgradeCode="d1e310cf-9adb-4026-81ed-7f0e08299513">
-    <Package InstallerVersion="100" Compressed="yes" InstallScope="perUser" />
+    <Package InstallerVersion="100" Compressed="yes" InstallScope="perMachine" />
     <MajorUpgrade DowngradeErrorMessage="A newer version of Playback Device Switcher is already installed." />
     <MediaTemplate />
 
