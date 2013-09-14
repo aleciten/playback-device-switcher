@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{02875BBA-AA44-4B7F-A586-E6AC781B3671}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ManicMonkey.PlaybackDeviceSwitcher</RootNamespace>
+    <AssemblyName>Switcher</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\card.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\ConfigManager.cs" />
+    <Compile Include="Configuration\DeviceSettings.cs" />
+    <Compile Include="Configuration\DeviceSettingsCollection.cs" />
+    <Compile Include="Configuration\DeviceSettingsElement.cs" />
+    <Compile Include="Configuration\DeviceSwitcherConfigSection.cs" />
+    <Compile Include="ContextMenuManager.cs" />
+    <Compile Include="CoreAudio\DeviceState.cs" />
+    <Compile Include="CoreAudio\Endpoint.cs" />
+    <Compile Include="CoreAudio\EndpointCollection.cs" />
+    <Compile Include="CoreAudio\DataFlow.cs" />
+    <Compile Include="CoreAudio\EndpointEventArgs.cs" />
+    <Compile Include="CoreAudio\EndpointManager.cs" />
+    <Compile Include="CoreAudio\Interop\ClassContext.cs" />
+    <Compile Include="CoreAudio\Interop\ComInterfaceId.cs" />
+    <Compile Include="CoreAudio\Interop\IMMDevice.cs" />
+    <Compile Include="CoreAudio\Interop\IMMDeviceCollection.cs" />
+    <Compile Include="CoreAudio\Interop\IMMDeviceEnumerator.cs" />
+    <Compile Include="CoreAudio\Interop\IMMEndpoint.cs" />
+    <Compile Include="CoreAudio\Interop\IMMNotificationClient.cs" />
+    <Compile Include="CoreAudio\Interop\IPolicyConfig.cs" />
+    <Compile Include="CoreAudio\Interop\IPropertyStore.cs" />
+    <Compile Include="CoreAudio\Interop\MMDeviceEnumerator.cs" />
+    <Compile Include="CoreAudio\Interop\PolicyConfig.cs" />
+    <Compile Include="CoreAudio\Interop\PropertyKey.cs" />
+    <Compile Include="CoreAudio\Interop\PropertyKeys.cs" />
+    <Compile Include="CoreAudio\Interop\PropVariant.cs" />
+    <Compile Include="CoreAudio\Interop\StorageAccessMode.cs" />
+    <Compile Include="CoreAudio\Role.cs" />
+    <Compile Include="NotifyIcon.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\aboutMM.png" />
+    <Content Include="Resources\card.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

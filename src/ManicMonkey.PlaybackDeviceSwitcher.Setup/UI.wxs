@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <UI Id="CustomUI">
+      <UIRef Id="UI_Texts"/>
+      <UIRef Id="UI_Admin"/>
+      <UIRef Id="UI_User"/>
+      
+      <Property Id="DefaultUIFont">DlgFont8</Property>
+      <Property Id="ErrorDialog">ErrorDlg</Property>
+
+      <Dialog Id="PrepareDlg" Width="370" Height="270" Title="[ProductName] [ProductVersion] [Setup]" Modeless="yes">
+        <Control Id="Cancel" Type="PushButton" X="304" Y="245" Width="56" Height="17" Default="yes" Cancel="yes" Text="[ButtonText_Cancel]">
+          <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+        </Control>
+        <Control Id="Bitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="234" TabSkip="no" Text="[DialogBitmap]" />
+        <Control Id="ActionText" Type="Text" X="135" Y="100" Width="220" Height="20" Transparent="yes" NoPrefix="yes">
+          <Subscribe Event="ActionText" Attribute="Text" />
+        </Control>
+        <Control Id="Description" Type="Text" X="135" Y="70" Width="220" Height="20" Transparent="yes" NoPrefix="yes">
+          <Text>Please wait while the [Wizard] prepares to guide you through the installation.</Text>
+        </Control>
+        <Control Id="Next" Type="PushButton" X="236" Y="245" Width="56" Height="17" Disabled="yes" TabSkip="yes" Text="[ButtonText_Next]" />
+        <Control Id="Back" Type="PushButton" X="180" Y="245" Width="56" Height="17" Disabled="yes" TabSkip="yes" Text="[ButtonText_Back]" />
+        <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+        <Control Id="Title" Type="Text" X="135" Y="20" Width="220" Height="60" Transparent="yes" NoPrefix="yes">
+          <Text>{\VerdanaBold13}Welcome to the [ProductName] [Wizard]</Text></Control>
+        <Control Id="ActionData" Type="Text" X="135" Y="125" Width="220" Height="30" Transparent="yes" NoPrefix="yes">
+          <Subscribe Event="ActionData" Attribute="Text" />
+        </Control>
+        <Control Type="Text" Id="Branding" Width="125" Height="11" X="11" Y="248" Transparent="yes" Disabled="yes" NoPrefix="yes" >
+          <Text>Manic Monkey labs</Text>
+        </Control>
+      </Dialog>
+
+      <Dialog Id="ProgressDlg" Width="370" Height="270" Title="[ProductName] [ProductVersion] [Setup]" Modeless="yes">
+        <Control Id="Cancel" Type="PushButton" X="304" Y="245" Width="56" Height="17" Default="yes" Cancel="yes" Text="[ButtonText_Cancel]">
+          <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+        </Control>
+        <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="[BannerBitmap]" />
+        <Control Id="Back" Type="PushButton" X="180" Y="245" Width="56" Height="17" Disabled="yes" Text="[ButtonText_Back]" />
+        <Control Id="Next" Type="PushButton" X="236" Y="245" Width="56" Height="17" Disabled="yes" Text="[ButtonText_Next]" />
+        <Control Id="ActionText" Type="Text" X="70" Y="100" Width="265" Height="10">
+          <Subscribe Event="ActionText" Attribute="Text" />
+        </Control>
+        <Control Id="Text" Type="Text" X="35" Y="65" Width="300" Height="20">
+          <Text>Please wait while the [Wizard] [Progress2] [ProductName]. This may take several minutes.</Text>
+        </Control>
+        <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="372" Height="0" />
+        <Control Id="Title" Type="Text" X="20" Y="15" Width="200" Height="15" Transparent="yes" NoPrefix="yes">
+          <Text>{\DlgTitleFont}[Progress1] [ProductName]</Text>
+        </Control>
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="372" Height="0" />
+        <Control Id="ProgressBar" Type="ProgressBar" X="35" Y="115" Width="300" Height="10" ProgressBlocks="yes" Text="Progress done">
+          <Subscribe Event="SetProgress" Attribute="Progress" />
+        </Control>
+        <Control Id="StatusLabel" Type="Text" X="35" Y="100" Width="35" Height="10" Text="Status:" />
+        <Control Type="Text" Id="Branding" Width="125" Height="11" X="11" Y="248" Transparent="yes" Disabled="yes" NoPrefix="yes" >
+          <Text>Manic Monkey labs</Text>
+        </Control>
+      </Dialog>
+
+      <Dialog Id="FatalError" Width="370" Height="270" Title="[ProductName] [ProductVersion] [Setup]" NoMinimize="yes">
+        <Control Id="Finish" Type="PushButton" X="236" Y="245" Width="56" Height="17" Default="yes" Cancel="yes" Text="[ButtonText_Finish]">
+          <Publish Event="EndDialog" Value="Exit">1</Publish>
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="304" Y="245" Width="56" Height="17" Disabled="yes" Text="[ButtonText_Cancel]" />
+        <Control Id="Bitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="234" TabSkip="no" Text="[DialogBitmap]" />
+        <Control Id="Back" Type="PushButton" X="180" Y="245" Width="56" Height="17" Disabled="yes" Text="[ButtonText_Back]" />
+        <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+        <Control Id="Title1" Type="Text" X="135" Y="11" Width="220" Height="20" Transparent="yes" NoPrefix="yes">
+          <Text>{\VerdanaBold13}[ProductName] [ProductVersion]</Text>
+        </Control>
+        <Control Id="Title2" Type="Text" X="135" Y="26" Width="220" Height="50" Transparent="yes" NoPrefix="yes">
+          <Text>{\VerdanaBold13}[Wizard] ended prematurely</Text>
+        </Control>
+        
+        <Control Id="Description1" Type="Text" X="135" Y="70" Width="220" Height="40" Transparent="yes" NoPrefix="yes">
+          <Text>[ProductName] setup ended prematurely because of an error. Your system has not been modified. To install this program at a later time, please run the installation again.</Text>
+        </Control>
+        <Control Id="Description2" Type="Text" X="135" Y="115" Width="220" Height="20" Transparent="yes" NoPrefix="yes">
+          <Text>Click the Finish button to exit the [Wizard].</Text>
+        </Control>
+        <Control Type="Text" Id="Branding" Width="125" Height="11" X="11" Y="248" Transparent="yes" Disabled="yes" NoPrefix="yes" >
+          <Text>Manic Monkey labs</Text>
+        </Control>
+      </Dialog>
+
+      <Dialog Id="CancelDlg" Width="260" Height="85" Title="[ProductName] [ProductVersion] [Setup]" NoMinimize="yes">
+        <Control Id="No" Type="PushButton" X="132" Y="57" Width="56" Height="17" Default="yes" Cancel="yes" Text="[ButtonText_No]">
+          <Publish Event="EndDialog" Value="Return">1</Publish>
+        </Control>
+        <Control Id="Yes" Type="PushButton" X="72" Y="57" Width="56" Height="17" Text="[ButtonText_Yes]">
+          <Publish Event="EndDialog" Value="Exit">1</Publish>
+        </Control>
+        <Control Id="Text" Type="Text" X="48" Y="15" Width="194" Height="30">
+          <Text>Are you sure you want to cancel the installation?</Text>
+        </Control>
+        <Control Id="Icon" Type="Icon" X="15" Y="15" Width="24" Height="24" ToolTip="Information icon" FixedSize="yes" IconSize="32" Text="[InfoIcon]" />
+      </Dialog>
+
+      <Dialog Id="ErrorDlg" Width="270" Height="105" Title="Installer Information" ErrorDialog="yes" NoMinimize="yes">
+        <Control Id="ErrorText" Type="Text" X="48" Y="15" Width="205" Height="60" TabSkip="no" Text="Information text" />
+        <Control Id="Y" Type="PushButton" X="100" Y="80" Width="56" Height="17" TabSkip="yes" Text="[ButtonText_Yes]">
+          <Publish Event="EndDialog" Value="ErrorYes">1</Publish>
+        </Control>
+        <Control Id="A" Type="PushButton" X="100" Y="80" Width="56" Height="17" TabSkip="yes" Text="[ButtonText_Cancel]">
+          <Publish Event="EndDialog" Value="ErrorAbort">1</Publish>
+        </Control>
+        <Control Id="C" Type="PushButton" X="100" Y="80" Width="56" Height="17" TabSkip="yes" Text="[ButtonText_Cancel]">
+          <Publish Event="EndDialog" Value="ErrorCancel">1</Publish>
+        </Control>
+        <Control Id="ErrorIcon" Type="Icon" X="15" Y="15" Width="24" Height="24" ToolTip="Information icon" FixedSize="yes" IconSize="32" Text="[InfoIcon]" />
+        <Control Id="I" Type="PushButton" X="100" Y="80" Width="56" Height="17" TabSkip="yes" Text="[ButtonText_Ignore]">
+          <Publish Event="EndDialog" Value="ErrorIgnore">1</Publish>
+        </Control>
+        <Control Id="N" Type="PushButton" X="100" Y="80" Width="56" Height="17" TabSkip="yes" Text="[ButtonText_No]">
+          <Publish Event="EndDialog" Value="ErrorNo">1</Publish>
+        </Control>
+        <Control Id="O" Type="PushButton" X="100" Y="80" Width="56" Height="17" TabSkip="yes" Text="[ButtonText_OK]">
+          <Publish Event="EndDialog" Value="ErrorOk">1</Publish>
+        </Control>
+        <Control Id="R" Type="PushButton" X="100" Y="80" Width="56" Height="17" TabSkip="yes" Text="[ButtonText_Retry]">
+          <Publish Event="EndDialog" Value="ErrorRetry">1</Publish>
+        </Control>
+      </Dialog>
+
+      <Dialog Id="FilesInUse" Width="370" Height="270" Title="[ProductName] [ProductVersion] [Setup]" NoMinimize="yes" KeepModeless="yes">
+        <Control Id="Retry" Type="PushButton" X="304" Y="245" Width="56" Height="17" Default="yes" Cancel="yes" Text="[ButtonText_Retry]">
+          <Publish Event="EndDialog" Value="Retry">1</Publish>
+        </Control>
+        <Control Id="Ignore" Type="PushButton" X="235" Y="245" Width="56" Height="17" Text="[ButtonText_Ignore]">
+          <Publish Event="EndDialog" Value="Ignore">1</Publish>
+        </Control>
+        <Control Id="Exit" Type="PushButton" X="166" Y="245" Width="56" Height="17" Text="[ButtonText_Exit]">
+          <Publish Event="EndDialog" Value="Exit">1</Publish>
+        </Control>
+        <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="[BannerBitmap]" />
+        <Control Id="Description" Type="Text" X="20" Y="23" Width="280" Height="20" Transparent="yes" NoPrefix="yes">
+          <Text>Some files that need to be updated are currently in use.</Text>
+        </Control>
+        <Control Id="Text" Type="Text" X="20" Y="55" Width="330" Height="30">
+          <Text>The following applications are using files that need to be updated by this setup. Close these applications and then click Retry to continue the installation or Cancel to exit it.</Text>
+        </Control>
+        <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="372" Height="0" />
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes">
+          <Text>{\DlgTitleFont}Files in Use</Text>
+        </Control>
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="372" Height="0" />
+        <Control Id="List" Type="ListBox" X="20" Y="87" Width="330" Height="130" Property="FileInUseProcess" Sunken="yes" TabSkip="yes" />
+        <Control Type="Text" Id="Branding" Width="125" Height="11" X="11" Y="248" Transparent="yes" Disabled="yes" NoPrefix="yes" >
+          <Text>Manic Monkey labs</Text>
+        </Control>
+      </Dialog>
+
+      
+      <Dialog Id="OutOfDiskDlg" Width="370" Height="270" Title="[ProductName] [ProductVersion] [Setup]" NoMinimize="yes">
+        <Control Id="OK" Type="PushButton" X="304" Y="245" Width="56" Height="17" Default="yes" Cancel="yes" Text="[ButtonText_OK]">
+          <Publish Event="EndDialog" Value="Return">1</Publish>
+        </Control>
+        <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="[BannerBitmap]" />
+        <Control Id="Description" Type="Text" X="20" Y="20" Width="280" Height="20" Transparent="yes" NoPrefix="yes">
+          <Text>Disk space required for the installation exceeds available disk space.</Text>
+        </Control>
+        <Control Id="Text" Type="Text" X="20" Y="53" Width="330" Height="40">
+          <Text>The highlighted volumes do not have enough disk space available for the currently selected features. You can either remove some files from the highlighted volumes, or choose to install less features onto local drive(s), or select different destination drive(s).</Text>
+        </Control>
+        <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="372" Height="0" />
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes">
+          <Text>{\DlgTitleFont}Out of Disk Space</Text>
+        </Control>
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="372" Height="0" />
+        <Control Id="VolumeList" Type="VolumeCostList" X="20" Y="100" Width="330" Height="120" Sunken="yes" Fixed="yes" Remote="yes">
+          <Text>{120}{70}{70}{70}{70}</Text>
+        </Control>
+        <Control Type="Text" Id="Branding" Width="125" Height="11" X="11" Y="248" Transparent="yes" Disabled="yes" NoPrefix="yes" >
+          <Text>Manic Monkey labs</Text>
+        </Control>
+      </Dialog>
+
+      <Dialog Id="OutOfRbDiskDlg" Width="370" Height="270" Title="[ProductName] [ProductVersion] [Setup]" NoMinimize="yes">
+        <Control Id="No" Type="PushButton" X="304" Y="245" Width="56" Height="17" Default="yes" Cancel="yes" Text="[ButtonText_No]">
+          <Publish Event="EndDialog" Value="Return">1</Publish>
+        </Control>
+        <Control Id="Yes" Type="PushButton" X="240" Y="245" Width="56" Height="17" Text="[ButtonText_Yes]">
+          <Publish Event="EnableRollback" Value="False">1</Publish>
+          <Publish Event="EndDialog" Value="Return">1</Publish>
+        </Control>
+        <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="[BannerBitmap]" />
+        <Control Id="Description" Type="Text" X="20" Y="20" Width="280" Height="20" Transparent="yes" NoPrefix="yes">
+          <Text>Disk space required for the installation exceeds available disk space.</Text>
+        </Control>
+        <Control Id="Text" Type="Text" X="20" Y="53" Width="330" Height="40">
+          <Text>The highlighted volumes do not have enough disk space available for the currently selected features. You can either remove some files from the highlighted volumes, or choose to install less features onto local drive(s), or select different destination drive(s).</Text>
+        </Control>
+        <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="372" Height="0" />
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes">
+          <Text>{\DlgTitleFont}Out of Disk Space</Text>
+        </Control>
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="372" Height="0" />
+        <Control Id="VolumeList" Type="VolumeCostList" X="20" Y="140" Width="330" Height="80" Sunken="yes" Fixed="yes" Remote="yes" ShowRollbackCost="yes">
+          <Text>{120}{70}{70}{70}{70}</Text>
+        </Control>
+        <Control Id="Text2" Type="Text" X="20" Y="94" Width="330" Height="40">
+          <Text>Alternatively, you may choose to disable the installer's rollback functionality. This allows the installer to restore your computer's original state should the installation be interrupted in any way. Click Yes if you wish to take the risk to disable rollback.</Text>
+        </Control>
+        <Control Type="Text" Id="Branding" Width="125" Height="11" X="11" Y="248" Transparent="yes" Disabled="yes" NoPrefix="yes" >
+          <Text>Manic Monkey labs</Text>
+        </Control>
+      </Dialog>
+
+      <Dialog Id="ResumeDlg" Width="370" Height="270" Title="[ProductName] [ProductVersion] [Setup]" NoMinimize="yes">
+        <Control Id="Install" Type="PushButton" X="236" Y="245" Width="56" Height="17" Default="yes" Text="[ButtonText_Install]">
+          <Publish Event="SpawnWaitDialog" Value="WaitForCostingDlg">CostingComplete = 1</Publish>
+          <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+          <Publish Event="SpawnDialog" Value="OutOfRbDiskDlg"><![CDATA[OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND (PROMPTROLLBACKCOST="P" OR NOT PROMPTROLLBACKCOST)]]></Publish>
+          <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"]]></Publish>
+          <Publish Event="EnableRollback" Value="False"><![CDATA[OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"]]></Publish>
+          <Publish Event="SpawnDialog" Value="OutOfDiskDlg"><![CDATA[(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST="F")]]></Publish>
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="304" Y="245" Width="56" Height="17" Cancel="yes" Text="[ButtonText_Cancel]">
+          <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+        </Control>
+        <Control Id="Bitmap" Type="Bitmap" X="0" Y="0" Width="122" Height="234" TabSkip="no" Text="[DialogBitmap]" />
+        <Control Id="Back" Type="PushButton" X="180" Y="245" Width="56" Height="17" Disabled="yes" Text="[ButtonText_Back]" />
+        <Control Id="Description" Type="Text" X="135" Y="70" Width="220" Height="30" Transparent="yes" NoPrefix="yes">
+          <Text>The [Wizard] will complete the installation of [ProductName] on your computer. Click Install to continue or Cancel to exit the [Wizard].</Text>
+        </Control>
+        <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+        <Control Id="Title" Type="Text" X="135" Y="20" Width="220" Height="60" Transparent="yes" NoPrefix="yes">
+          <Text>{\VerdanaBold13}Resuming the [ProductName] [Wizard]</Text>
+        </Control>
+        <Control Type="Text" Id="Branding" Width="125" Height="11" X="11" Y="248" Transparent="yes" Disabled="yes" NoPrefix="yes" >
+          <Text>Manic Monkey labs</Text>
+        </Control>
+      </Dialog>
+
+      
+
+      <Dialog Id="VerifyReadyDlg" Width="370" Height="270" Title="[ProductName] [ProductVersion] [Setup]" NoMinimize="yes" TrackDiskSpace="yes">
+        <Control Id="Install" Type="PushButton" X="236" Y="245" Width="56" Height="17" Default="yes" Text="[ButtonText_Install]">
+          <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+          <Publish Event="SpawnDialog" Value="OutOfRbDiskDlg"><![CDATA[OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND (PROMPTROLLBACKCOST="P" OR NOT PROMPTROLLBACKCOST)]]></Publish>
+          <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"]]></Publish>
+          <Publish Event="EnableRollback" Value="False"><![CDATA[OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"]]></Publish>
+          <Publish Event="SpawnDialog" Value="OutOfDiskDlg"><![CDATA[(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST="F")]]></Publish>
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="304" Y="245" Width="56" Height="17" Cancel="yes" Text="[ButtonText_Cancel]">
+          <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+        </Control>
+        <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="[BannerBitmap]" />
+        <Control Id="Back" Type="PushButton" X="180" Y="245" Width="56" Height="17" Text="[ButtonText_Back]">
+          <Publish Event="NewDialog" Value="AdminInstallPointDlg"><![CDATA[InstallMode = "Server Image"]]></Publish>
+          <Publish Event="NewDialog" Value="CustomizeDlg"><![CDATA[InstallMode = "Custom" OR InstallMode = "Change"]]></Publish>
+          <Publish Event="NewDialog" Value="MaintenanceTypeDlg"><![CDATA[InstallMode = "Repair"]]></Publish>
+          <Publish Event="NewDialog" Value="SetupTypeDlg"><![CDATA[InstallMode = "Typical" OR InstallMode = "Complete"]]></Publish>
+        </Control>
+        <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes">
+          <Text>The [Wizard] is ready to begin the installation</Text>
+        </Control>
+        <Control Id="Text" Type="Text" X="25" Y="70" Width="320" Height="20">
+          <Text>Click Install to begin the installation. If you want to review or change any of your installation settings, click Back. Click Cancel to exit the wizard.</Text>
+        </Control>
+        <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="372" Height="0" />
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes">
+          <Text>{\DlgTitleFont}Ready to Install</Text>
+        </Control>
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="372" Height="0" />
+        <Control Type="Text" Id="Branding" Width="125" Height="11" X="11" Y="248" Transparent="yes" Disabled="yes" NoPrefix="yes" >
+          <Text>Manic Monkey labs</Text>
+        </Control>
+      </Dialog>
+
+      <Dialog Id="VerifyRemoveDlg" Width="370" Height="270" Title="[ProductName] [ProductVersion] [Setup]" NoMinimize="yes" TrackDiskSpace="yes">
+        <Control Id="Back" Type="PushButton" X="180" Y="245" Width="56" Height="17" Default="yes" Text="[ButtonText_Back]">
+          <Publish Event="NewDialog" Value="MaintenanceTypeDlg">1</Publish>
+        </Control>
+        <Control Id="Remove" Type="PushButton" X="236" Y="245" Width="56" Height="17" Text="[ButtonText_Remove]">
+          <Publish Event="Remove" Value="All"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+          <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+          <Publish Event="SpawnDialog" Value="OutOfRbDiskDlg"><![CDATA[OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND (PROMPTROLLBACKCOST="P" OR NOT PROMPTROLLBACKCOST)]]></Publish>
+          <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"]]></Publish>
+          <Publish Event="EnableRollback" Value="False"><![CDATA[OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"]]></Publish>
+          <Publish Event="SpawnDialog" Value="OutOfDiskDlg"><![CDATA[(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST="F")]]></Publish>
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="304" Y="245" Width="56" Height="17" Cancel="yes" Text="[ButtonText_Cancel]">
+          <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+        </Control>
+        <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="[BannerBitmap]" />
+        <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes">
+          <Text>You have chosen to remove the program from your computer.</Text>
+        </Control>
+        <Control Id="Text" Type="Text" X="25" Y="70" Width="320" Height="30">
+          <Text>Click Remove to remove [ProductName] from your computer. If you want to review or change any of your installation settings, click Back. Click Cancel to exit the wizard.</Text>
+        </Control>
+        <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="372" Height="0" />
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes">
+          <Text>{\DlgTitleFont}Remove [ProductName]</Text>
+        </Control>
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="372" Height="0" />
+        <Control Type="Text" Id="Branding" Width="125" Height="11" X="11" Y="248" Transparent="yes" Disabled="yes" NoPrefix="yes" >
+          <Text>Manic Monkey labs</Text>
+        </Control>
+      </Dialog>
+
+      <Dialog Id="VerifyRepairDlg" Width="370" Height="270" Title="[ProductName] [ProductVersion] [Setup]" NoMinimize="yes" TrackDiskSpace="yes">
+        <Control Id="Repair" Type="PushButton" X="236" Y="245" Width="56" Height="17" Default="yes" Text="[ButtonText_Repair]">
+          <Publish Event="ReinstallMode" Value="ecmus"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+          <Publish Event="Reinstall" Value="All"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+          <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace <> 1]]></Publish>
+          <Publish Event="SpawnDialog" Value="OutOfRbDiskDlg"><![CDATA[OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND (PROMPTROLLBACKCOST="P" OR NOT PROMPTROLLBACKCOST)]]></Publish>
+          <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"]]></Publish>
+          <Publish Event="EnableRollback" Value="False"><![CDATA[OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"]]></Publish>
+          <Publish Event="SpawnDialog" Value="OutOfDiskDlg"><![CDATA[(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST="F")]]></Publish>
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="304" Y="245" Width="56" Height="17" Cancel="yes" Text="[ButtonText_Cancel]">
+          <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+        </Control>
+        <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="[BannerBitmap]" />
+        <Control Id="Back" Type="PushButton" X="180" Y="245" Width="56" Height="17" Text="[ButtonText_Back]">
+          <Publish Event="NewDialog" Value="MaintenanceTypeDlg">1</Publish>
+        </Control>
+        <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes">
+          <Text>The [Wizard] is ready to begin the repair of [ProductName].</Text>
+        </Control>
+        <Control Id="Text" Type="Text" X="25" Y="70" Width="320" Height="30">
+          <Text>Click Repair to repair the installation of [ProductName]. If you want to review or change any of your installation settings, click Back. Click Cancel to exit the wizard.</Text>
+        </Control>
+        <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="372" Height="0" />
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes">
+          <Text>{\DlgTitleFont}Repair [ProductName]</Text>
+        </Control>
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="372" Height="0" />
+        <Control Type="Text" Id="Branding" Width="125" Height="11" X="11" Y="248" Transparent="yes" Disabled="yes" NoPrefix="yes" >
+          <Text>Manic Monkey labs</Text>
+        </Control>
+      </Dialog>
+
+      <Dialog Id="WaitForCostingDlg" Width="260" Height="85" Title="[ProductName] [Setup]" NoMinimize="yes">
+        <Control Id="Return" Type="PushButton" X="102" Y="57" Width="56" Height="17" Default="yes" Cancel="yes" Text="[ButtonText_Return]">
+          <Publish Event="EndDialog" Value="Exit">1</Publish>
+        </Control>
+        <Control Id="Text" Type="Text" X="48" Y="15" Width="194" Height="30">
+          <Text>Please wait while the installer finishes determining your disk space requirements.</Text>
+        </Control>
+        <Control Id="Icon" Type="Icon" X="15" Y="15" Width="24" Height="24" ToolTip="Exclamation icon" FixedSize="yes" IconSize="32" Text="[ExclamationIcon]" />
+      </Dialog>
+
+      <RadioButtonGroup Property="IAgree">
+        <RadioButton Text="{\DlgFont8}I &amp;accept the terms in the License Agreement" Value="Yes" X="5" Y="0" Width="250" Height="15" />
+        <RadioButton Text="{\DlgFont8}I &amp;do not accept the terms in the License Agreement" Value="No" X="5" Y="20" Width="250" Height="15" />
+      </RadioButtonGroup>
+
+      <TextStyle Id="DlgFont8" FaceName="Tahoma" Size="8" />
+      <TextStyle Id="DlgTitleFont" FaceName="Tahoma" Size="8" Bold="yes" />
+      <TextStyle Id="VerdanaBold13" FaceName="Verdana" Size="13" Bold="yes" />      
+    </UI>
+
+    <Property Id="Setup">Setup</Property>
+    <Property Id="ButtonText_Back">&lt; &amp;Back</Property>
+    <Property Id="ButtonText_Browse">Br&amp;owse</Property>
+    <Property Id="ButtonText_Cancel">Cancel</Property>
+    <Property Id="ButtonText_Exit">&amp;Exit</Property>
+    <Property Id="ButtonText_Finish">&amp;Finish</Property>
+    <Property Id="ButtonText_Ignore">&amp;Ignore</Property>
+    <Property Id="ButtonText_Install">&amp;Install</Property>
+    <Property Id="ButtonText_Next">&amp;Next &gt;</Property>
+    <Property Id="ButtonText_No">&amp;No</Property>
+    <Property Id="ButtonText_OK">OK</Property>
+    <Property Id="ButtonText_Remove">&amp;Remove</Property>
+    <Property Id="ButtonText_Repair">&amp;Repair</Property>
+    <Property Id="ButtonText_Reset">&amp;Reset</Property>
+    <Property Id="ButtonText_Resume">&amp;Resume</Property>
+    <Property Id="ButtonText_Retry">&amp;Retry</Property>
+    <Property Id="ButtonText_Return">&amp;Return</Property>
+    <Property Id="ButtonText_Yes">&amp;Yes</Property>
+    <Property Id="BannerBitmap">bannrbmp</Property>
+    <Property Id="Wizard">Setup Wizard</Property>
+    <Property Id="InfoIcon">info</Property>
+    <Property Id="CustomSetupIcon">custicon</Property>
+    <Property Id="RemoveIcon">removico</Property>
+    <Property Id="ExclamationIcon">exclamic</Property>
+    <Property Id="CompleteSetupIcon">completi</Property>
+    <Property Id="RepairIcon">repairic</Property>
+    <Property Id="InstallerIcon">insticon</Property>
+    <Property Id="DialogBitmap">dlgbmp</Property>
+    <Property Id="LAUNCHPRODUCT">1</Property>
+    <Property Id="IAgree">No</Property>
+
+    <Property Id="ApplicationFolderName">No</Property>
+    <Property Id="WixAppFolder">No</Property>
+
+    <Binary Id="Up" SourceFile="Binary\Up.ico" />
+    <Binary Id="New" SourceFile="Binary\New.ico" />
+    <Binary Id="custicon" SourceFile="Binary\Custom.ico" />
+    <Binary Id="repairic" SourceFile="Binary\Repair.ico" />
+    <Binary Id="exclamic" SourceFile="Binary\Exclam.ico" />
+    <Binary Id="removico" SourceFile="Binary\Remove.ico" />
+    <Binary Id="completi" SourceFile="Binary\Complete.ico" />
+    <Binary Id="insticon" SourceFile="Binary\Typical.ico" />
+    <Binary Id="info" SourceFile="Binary\Info.ico" />
+    <Binary Id="bannrbmp" SourceFile="Binary\Banner.bmp" />
+    <Binary Id="dlgbmp" SourceFile="Binary\Dialog.bmp" />
+  </Fragment>
+</Wix>

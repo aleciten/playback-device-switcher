@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <FeatureGroup Id="Features">
+      <Feature Id="Main" Title="Program files" Description="The application" Level="1" TypicalDefault="install" ConfigurableDirectory="INSTALLDIR" Absent="disallow" AllowAdvertise="no" >
+        <Component Id="MainComponent" Guid="8f337472-e594-468c-a3e1-300ae331f6e1" Directory="INSTALLDIR" Location="local">
+          <File Id="SwitcherEXE" Name="$(var.MainProject.TargetFileName)" Source="$(var.MainProject.TargetPath)" Vital="yes" DiskId="1" KeyPath="yes" />
+        </Component>
+      </Feature>
+
+      <Feature Id="AutoStart" Title="Run at system startup" Display="expand" Description="Run Playback Device Switcher when Windows starts" AllowAdvertise="no" Level="1">
+        <Component Id="AutoStartComponent" Guid="C97B3862-C551-44B1-9229-E3E226216D28" Directory="INSTALLDIR" Location="local">
+          <RegistryValue Id="Switcher.AutoStart" Root="HKMU" Action="write" Key="Software\Microsoft\Windows\CurrentVersion\Run" Name="Playback Device Switcher" Value="Switcher.exe" Type="string" />
+        </Component>
+      </Feature>
+
+      <Feature Id="StartMenuShortcut" Title="Program menu shortcut" Display="expand" Description="Program menu shortcut" AllowAdvertise="no" Level="1">
+        <Component Id="StartMenuShortcutComponent" Guid="036DF456-1EF0-4DBA-A0A4-9327AAB7D0E9" Directory="ApplicationProgramFolder" Location="local">
+          <Shortcut Id="ApplicationStartMenuShortcut"
+                Name="Playback Device Switcher"
+                Target="[INSTALLDIR]Switcher.exe"
+                WorkingDirectory="INSTALLDIR"/>
+
+          <RemoveFolder Id="ApplicationProgramFolder" On="uninstall"/>
+
+          <RegistryValue Root="HKCU" Key="Software\Microsoft\ManicMonkey\Playback Device Switcher" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+        </Component>
+      </Feature>
+
+      <Feature Id="DesktopShortcut" Title="Desktop shortcut" Display="expand" Description="Desktop shortcut" AllowAdvertise="no" Level="1">
+        <Component Id="DesktopShortcutComponent" Guid="2276A425-C36A-4985-ADC6-36A9C9AEE9BD" Directory="DesktopFolder" Location="local">
+          <Shortcut
+                Id="ApplicationDesktopShortcut"
+                Name="Playback Device Switcher"
+                Target="[INSTALLDIR]Switcher.exe"
+                WorkingDirectory="INSTALLDIR"/>
+
+          <RegistryValue
+                Root="HKCU"
+                Key="Software\Microsoft\ManicMonkey\Playback Device Switcher"
+                Name="installed"
+                Type="integer"
+                Value="1"
+                KeyPath="yes"/>
+        </Component>
+      </Feature>
+    </FeatureGroup>
+	</Fragment>
+</Wix>

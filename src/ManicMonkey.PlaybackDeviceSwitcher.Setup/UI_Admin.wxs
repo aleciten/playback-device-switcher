@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+		<UI Id="UI_Admin">
+			<Dialog Id="AdminWelcomeDlg" Width="370" Height="270" Title="[ProductName] [ProductVersion] [Setup]" NoMinimize="yes">
+				<Control Id="Next" Type="PushButton" X="236" Y="245" Width="56" Height="17" Default="yes" Text="[ButtonText_Next]">
+					<Publish Property="InstallMode" Value="Server Image">1</Publish>
+					<Publish Event="NewDialog" Value="AdminRegistrationDlg">1</Publish>
+					<Condition Action="enable">1</Condition>
+				</Control>
+				<Control Id="Cancel" Type="PushButton" X="304" Y="245" Width="56" Height="17" Cancel="yes" Text="[ButtonText_Cancel]">
+					<Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+				</Control>
+				<Control Id="Bitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="234" TabSkip="no" Text="[DialogBitmap]" />
+				<Control Id="Back" Type="PushButton" X="180" Y="245" Width="56" Height="17" Disabled="yes" Text="[ButtonText_Back]" />
+				<Control Id="Description" Type="Text" X="135" Y="70" Width="220" Height="30" Transparent="yes" NoPrefix="yes">
+					<Text>The [Wizard] will create a server image of [ProductName], at a specified network location. Click Next to continue or Cancel to exit the [Wizard].</Text>
+				</Control>
+				<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+				<Control Id="Title" Type="Text" X="135" Y="20" Width="220" Height="60" Transparent="yes" NoPrefix="yes">
+					<Text>{\VerdanaBold13}Welcome to the [ProductName] [Wizard]</Text>
+				</Control>
+			</Dialog>
+
+			<Dialog Id="AdminBrowseDlg" Width="370" Height="270" Title="[ProductName] [ProductVersion] [Setup]" NoMinimize="yes">
+				<Control Id="PathEdit" Type="PathEdit" X="84" Y="202" Width="261" Height="17" Property="TARGETDIR" />
+				<Control Id="OK" Type="PushButton" X="304" Y="245" Width="56" Height="17" Default="yes" Text="[ButtonText_OK]">
+					<Publish Event="SetTargetPath" Value="TARGETDIR">1</Publish>
+					<Publish Event="EndDialog" Value="Return">1</Publish>
+				</Control>
+				<Control Id="Cancel" Type="PushButton" X="240" Y="245" Width="56" Height="17" Cancel="yes" Text="[ButtonText_Cancel]">
+					<Publish Event="Reset" Value="0">1</Publish>
+					<Publish Event="EndDialog" Value="Return">1</Publish>
+				</Control>
+				<Control Id="ComboLabel" Type="Text" X="25" Y="58" Width="44" Height="10" TabSkip="no" Text="&amp;Look in:" />
+				<Control Id="DirectoryCombo" Type="DirectoryCombo" X="70" Y="55" Width="220" Height="80" Property="TARGETDIR" Removable="yes" Fixed="yes" Remote="yes">
+					<Subscribe Event="IgnoreChange" Attribute="IgnoreChange" />
+				</Control>
+				<Control Id="Up" Type="PushButton" X="298" Y="55" Width="19" Height="19" ToolTip="Up One Level" Icon="yes" FixedSize="yes" IconSize="16" Text="Up">
+					<Publish Event="DirectoryListUp" Value="0">1</Publish>
+				</Control>
+				<Control Id="NewFolder" Type="PushButton" X="325" Y="55" Width="19" Height="19" ToolTip="Create A New Folder" Icon="yes" FixedSize="yes" IconSize="16" Text="New">
+					<Publish Event="DirectoryListNew" Value="0">1</Publish>
+				</Control>
+				<Control Id="DirectoryList" Type="DirectoryList" X="25" Y="83" Width="320" Height="110" Property="TARGETDIR" Sunken="yes" TabSkip="no" />
+				<Control Id="PathLabel" Type="Text" X="25" Y="205" Width="59" Height="10" TabSkip="no" Text="&amp;Folder name:" />
+				<Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="[BannerBitmap]" />
+				<Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes">
+					<Text>Browse to the destination folder</Text>
+				</Control>
+				<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+				<Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes">
+					<Text>{\DlgTitleFont}Change current destination folder</Text>
+				</Control>
+				<Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+			</Dialog>
+
+			<Dialog Id="AdminInstallPointDlg" Width="370" Height="270" Title="[ProductName] [ProductVersion] [Setup]" NoMinimize="yes">
+				<Control Id="Text" Type="Text" X="25" Y="80" Width="320" Height="10" TabSkip="no">
+					<Text>&amp;Enter a new network location or click Browse to browse to one.</Text>
+				</Control>
+				<Control Id="PathEdit" Type="PathEdit" X="25" Y="93" Width="320" Height="18" Property="TARGETDIR" />
+				<Control Id="Browse" Type="PushButton" X="289" Y="119" Width="56" Height="17" Text="[ButtonText_Browse]">
+					<Publish Event="SpawnDialog" Value="AdminBrowseDlg">1</Publish>
+				</Control>
+				<Control Id="Back" Type="PushButton" X="180" Y="245" Width="56" Height="17" Text="[ButtonText_Back]">
+					<Publish Event="NewDialog" Value="AdminRegistrationDlg">1</Publish>
+				</Control>
+				<Control Id="Next" Type="PushButton" X="236" Y="245" Width="56" Height="17" Default="yes" Text="[ButtonText_Next]">
+					<Publish Event="SetTargetPath" Value="TARGETDIR">1</Publish>
+					<Publish Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
+				</Control>
+				<Control Id="Cancel" Type="PushButton" X="304" Y="245" Width="56" Height="17" Cancel="yes" Text="[ButtonText_Cancel]">
+					<Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+				</Control>
+				<Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="[BannerBitmap]" />
+				<Control Id="Description" Type="Text" X="25" Y="20" Width="280" Height="20" Transparent="yes" NoPrefix="yes">
+					<Text>Please specify a network location for the server image of [ProductName] product</Text>
+				</Control>
+				<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+				<Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes">
+					<Text>{\DlgTitleFont}Network Location</Text>
+				</Control>
+				<Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+			</Dialog>
+
+			<Dialog Id="AdminRegistrationDlg" Width="370" Height="270" Title="[ProductName] [ProductVersion] [Setup]" NoMinimize="yes">
+				<Control Id="OrganizationLabel" Type="Text" X="45" Y="71" Width="285" Height="30" TabSkip="no">
+					<Text>&amp;Please enter the name of your organization in the box below. This will be used as default company name for subsequent installations of [ProductName]:</Text>
+				</Control>
+				<Control Id="OrganizationEdit" Type="Edit" X="45" Y="105" Width="220" Height="18" Property="COMPANYNAME" Text="{80}" />
+				<Control Id="CDKeyLabel" Type="Text" X="45" Y="130" Width="50" Height="10" TabSkip="no">
+					<Text>CD &amp;Key:</Text>
+				</Control>
+				<Control Id="CDKeyEdit" Type="MaskedEdit" X="45" Y="143" Width="250" Height="16" Property="PIDKEY" Text="[PIDTemplate]" />
+				<Control Id="Back" Type="PushButton" X="180" Y="245" Width="56" Height="17" Image="yes" Text="[ButtonText_Back]">
+					<Publish Event="NewDialog" Value="AdminWelcomeDlg">1</Publish>
+				</Control>
+				<Control Id="Next" Type="PushButton" X="236" Y="245" Width="56" Height="17" Default="yes" Text="[ButtonText_Next]">
+					<Publish Event="ValidateProductID" Value="0">0</Publish>
+					<Publish Event="NewDialog" Value="AdminInstallPointDlg">ProductID</Publish>
+				</Control>
+				<Control Id="Cancel" Type="PushButton" X="304" Y="245" Width="56" Height="17" Cancel="yes" Text="[ButtonText_Cancel]">
+					<Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+				</Control>
+				<Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="[BannerBitmap]" />
+				<Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes">
+					<Text>Please enter your company information</Text>
+				</Control>
+				<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+				<Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes">
+					<Text>{\DlgTitleFont}Company Information</Text>
+				</Control>
+				<Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+			</Dialog>
+			
+			<AdminUISequence>
+				<Show Dialog="FatalError" OnExit="error" />
+				<Show Dialog="UserExit" OnExit="cancel" />
+				<Show Dialog="ExitDialog" OnExit="success" />
+				<Show Dialog="PrepareDlg" Before="CostInitialize" />
+				<Show Dialog="AdminWelcomeDlg" After="CostFinalize" />
+				<Show Dialog="ProgressDlg" After="AdminWelcomeDlg" />
+			</AdminUISequence>
+		</UI>
+	</Fragment>
+</Wix>
